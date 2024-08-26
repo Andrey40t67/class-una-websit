@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Класс УНА - Поздравления и Игры</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .game-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 10px;
+            margin: 20px auto;
+            justify-content: center;
+        }
+
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card.flipped {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        #quiz {
+            margin-top: 20px;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .quiz-question label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .quiz-question input {
+            margin-right: 10px;
+        }
+
+        .quiz-question input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            #memory-game {
+                grid-template-columns: repeat(2, 100px);
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Поздравляем класс УНА!</h1>
+        </header>
+        <main>
+            <section id="greeting">
+                <h2>Поздравления</h2>
+                <p>Поздравляем вас с успешным окончанием 4-го класса! Мы рады, что вы достигли таких замечательных успехов и готовы к новым вызовам. Пусть средняя школа принесет вам много интересного и увлекательного!</p>
+            </section>
+
+            <section id="about-school">
+                <h2>О школе УНА</h2>
+                <p>Школа УНА - это место, где каждый студент получает качественное образование и развивает свои способности. Мы гордимся нашим учебным заведением и всеми достижениями наших учеников!</p>
+            </section>
+
+            <section id="teacher">
+                <h2>Наш классный руководитель</h2>
+                <p>Ольга Вячеславовна Зенькова - наш классный руководитель, который поддерживал и направлял нас весь этот год. Мы благодарны ей за все усилия и заботу!</p>
+            </section>
+
+            <section id="students">
+                <h2>Наши одноклассники</h2>
+                <ul>
+                    <li>Андрей Пашкевич</li>
+                    <li>Джианни Зокали</li>
+                    <li>Злата Власова</li>
+                    <li>Саша Завлишин</li>
+                    <li>Саша Иванущенко</li>
+                    <li>Леша Оксенов</li>
+                    <li>Петя Алиса Бегболатова</li>
+                    <li>Даша Шипшилей</li>
+                    <li>Катя Малафеева</li>
+                    <li>Амелия Баркова</li>
+                </ul>
+            </section>
+
+            <section id="games-and-quizzes">
+                <h2>Игры и тесты</h2>
+                <div class="game-container">
+                    <button onclick="startMemoryGame()">Начать игру "Память"</button>
+                    <button onclick="startQuiz()">Пройти тест</button>
+                </div>
+
+                <!-- Игра "Память" -->
+                <div id="memory-game" style="display:none;"></div>
+
+                <!-- Тест -->
+                <div id="quiz" style="display:none;">
+                    <h2>Тест на знания</h2>
+                    <div class="quiz-question">
+                        <label>1. Какое значение выражает 3^7?</label>
+                        <input type="radio" name="question1" value="2187"> 2187
+                        <input type="radio" name="question1" value="3^3×3^4"> 3^3×3^4
+                        <input type="radio" name="question1" value="3^6"> 3^6
+                    </div>
+                    <div class="quiz-question">
+                        <label>2. Если у вас 3 числа: 5, 7 и 9, какой из них является наибольшим простым числом?</label>
+                        <input type="radio" name="question2" value="5"> 5
+                        <input type="radio" name="question2" value="7"> 7
+                        <input type="radio" name="question2" value="9"> 9
+                    </div>
+                    <div class="quiz-question">
+                        <label>3. Найдите значение выражения: (3^2 × 2^3) ÷ (2 × 3) + 5</label>
+                        <input type="radio" name="question3" value="16"> 16
+                        <input type="radio" name="question3" value="18"> 18
+                        <input type="radio" name="question3" value="20"> 20
+                    </div>
+                    <div class="quiz-question">
+                        <label>4. Сколько будет 7! (факториал 7)?</label>
+                        <input type="radio" name="question4" value="5040"> 5040
+                        <input type="radio" name="question4" value="720"> 720
+                        <input type="radio" name="question4" value="40320"> 40320
+                    </div>
+                    <button onclick="submitQuiz()">Отправить ответы</button>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2024 Класс УНА. Все права защищены.</p>
+        </footer>
+    </div>
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            if (password === '2914') {
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('main-container').style.display = 'block';
+            } else {
+                document.getElementById('error-message').textContent = 'Неверный пароль!';
+            }
+        }
+
+        function startMemoryGame() {
+            const gameContainer = document.getElementById('memory-game');
+            gameContainer.style.display = 'grid';
+            gameContainer.innerHTML = '';
+            const cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D'];
+            cards.sort(() => Math.random() - 0.5);
+
+            cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('card');
+                cardElement.dataset.value = card;
+                cardElement.addEventListener('click', flipCard);
+                gameContainer.appendChild(cardElement);
+            });
+
+            let firstCard, secondCard;
+            let lockBoard = false;
+
+            function flipCard() {
+                if (lockBoard) return;
+                if (this === firstCard) return;
+
+                this.classList.add('flipped');
+
+                if (!firstCard) {
+                    firstCard = this;
+                    return;
+                }
+
+                secondCard = this;
+                lockBoard = true;
+
+                checkForMatch();
+            }
+
+            function checkForMatch() {
+                const isMatch = firstCard.dataset.value === secondCard.dataset.value;
+
+                if (isMatch) {
+                    disableCards();
+                } else {
+                    unflipCards();
+                }
+            }
+
+            function disableCards() {
+                firstCard.removeEventListener('click', flipCard);
+                secondCard.removeEventListener('click', flipCard);
+                resetBoard();
+            }
+
+            function unflipCards() {
+                setTimeout(() => {
+                    firstCard.classList.remove('flipped');
+                    secondCard.classList.remove('flipped');
+                    resetBoard();
+                }, 1500);
+            }
+
+            function resetBoard() {
+                [firstCard, secondCard, lockBoard] = [null, null, false];
+            }
+        }
+
+        function startQuiz() {
+            document.getElementById('quiz').style.display = 'block';
+        }
+
+        function submitQuiz() {
+            alert('Ваши ответы отправлены!');
+        }
+    </script>
+</body>
+</html>
